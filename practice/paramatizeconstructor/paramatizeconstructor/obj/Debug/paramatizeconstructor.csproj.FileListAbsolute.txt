@@ -1,0 +1,7 @@
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\paramatizeconstructor\paramatizeconstructor\bin\Debug\paramatizeconstructor.exe.config
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\paramatizeconstructor\paramatizeconstructor\bin\Debug\paramatizeconstructor.exe
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\paramatizeconstructor\paramatizeconstructor\bin\Debug\paramatizeconstructor.pdb
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\paramatizeconstructor\paramatizeconstructor\obj\Debug\paramatizeconstructor.csproj.AssemblyReference.cache
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\paramatizeconstructor\paramatizeconstructor\obj\Debug\paramatizeconstructor.csproj.CoreCompileInputs.cache
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\paramatizeconstructor\paramatizeconstructor\obj\Debug\paramatizeconstructor.exe
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\paramatizeconstructor\paramatizeconstructor\obj\Debug\paramatizeconstructor.pdb

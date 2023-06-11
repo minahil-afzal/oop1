@@ -1,0 +1,276 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Lab6Task1.BL;
+using Lab6Task1.UI;
+namespace Lab6Task1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyLine line=new MyLine();
+            int option = 0;
+            do
+            {
+                Console.Clear();  
+                option = Menu();
+                if (option == 1)
+                {
+                    Console.WriteLine("Make a Line...");
+                    MyPoint begin = MyLineUI.GetPointFromUser("Begin");
+                    line.setBegin(begin);
+                    MyPoint end = MyLineUI.GetPointFromUser("End");
+                    line.setEnd(end);
+                }
+                else if (option == 2)
+                {
+                    Console.WriteLine("Update the Begin Point");
+                    MyPoint begin = MyLineUI.GetPointFromUser("Begin");
+                    line.setBegin(begin);
+                }
+                else if (option == 3)
+                {
+                    Console.WriteLine("Update the End Point");
+                    MyPoint end = MyLineUI.GetPointFromUser("End");
+                    line.setEnd(end);
+                }
+                else if (option == 4)
+                {
+                    MyLineUI.ShowBeginPoint(line, "Begin");
+                }
+                else if (option == 5)
+                {
+                    MyLineUI.ShowEndPoint(line, "End");
+                }
+                else if (option == 6)
+                {
+                    MyLineUI.getLength(line);
+                }
+                else if (option == 7)
+                {
+                    MyLineUI.getGradient(line);
+                }
+                else if (option == 8)
+                {
+                    MyLineUI.distanceOfPointFromZero(line.begin, "Begin");
+                }
+                else if (option == 9)
+                {
+                    MyLineUI.distanceOfPointFromZero(line.end, "End");
+                }
+                else if(option ==10)
+                {
+                    break;
+                }
+                Console.ReadKey();
+
+            }
+            while (option != 10);
+        }
+
+        static int Menu()
+        {
+            int option;
+            Console.WriteLine("1.Make a Line");
+            Console.WriteLine("2.Update the begin point");
+            Console.WriteLine("3.Update the end point");
+            Console.WriteLine("4.Show the begin Point");
+            Console.WriteLine("5.Show the end point");
+            Console.WriteLine("6.Get the Length of the line");
+            Console.WriteLine("7.Get the Gradient of the Line");
+            Console.WriteLine("8.Find the distance of begin point from zero coordinates");
+            Console.WriteLine("9.Find the distance of end point from zero coordinates");
+            Console.WriteLine("10.Exit");
+            Console.WriteLine("Enter your option; ");
+            option = int.Parse(Console.ReadLine());
+            return option;
+        }
+    }
+}
+
+
+
+
+using Lab6Task1.BL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lab6Task1.UI
+{
+    public class MyLineUI
+    {
+        static public MyPoint GetPointFromUser(string point)
+        {
+           
+            int x = getPoint(point + " point x coordinate ");
+            int y = getPoint(point + " point y coordinate");
+            MyPoint myPoint = new MyPoint(x,y);
+            return myPoint;
+        }
+        static int getPoint(string point)
+        {
+            Console.Write("Enter the "+ point + " : ");
+            return int.Parse(Console.ReadLine());
+        }
+        public MyLine getLineFromUser()
+        {
+            MyPoint begin = GetPointFromUser("begin");
+            MyPoint end = GetPointFromUser("end");
+            MyLine myLine = new MyLine(begin, end);
+            return myLine;
+        }
+        public static void ShowBeginPoint(MyLine line,string point)
+        {
+            Console.Write(point + " Point x is " + line.getBegin().getX());
+            Console.Write(point + " Point y is " + line.getBegin().getY());
+        }
+        public static void ShowEndPoint(MyLine line, string point)
+        {
+            Console.Write(point + " Point x is " + line.getEnd().getX());
+            Console.Write(point + " Point y is " + line.getEnd().getY());
+        }
+        public static void getLength(MyLine line)
+        {
+            Console.WriteLine("Length of the Line is..."+ line.getLength()+"cm.");         
+        }
+        public static void getGradient(MyLine line)
+        {
+            Console.WriteLine("Gradient of the Line is..." + line.getGradient() + "cm.");
+        }
+        public static void distanceOfPointFromZero(MyPoint point,string p)
+        {
+            Console.WriteLine("Distance of "+p+" from zero CoOrdinate is : "+point.distanceFromZero());
+        }
+    }
+}
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lab6Task1.BL
+{
+    public class MyLine
+    {
+        public MyLine(MyPoint begin,MyPoint end)
+        {
+            this.begin = begin;
+            this.end = end;
+        }
+        public MyLine()
+        { }
+        public  MyPoint begin;
+        public MyPoint end;
+        public MyPoint getBegin()
+        {
+            return begin;
+        }
+        public void setBegin(MyPoint begin)
+        {
+            this.begin = begin;
+        }
+        public MyPoint getEnd()
+        {
+            return end;
+        }
+        public void setEnd(MyPoint end)
+        {
+            this.end = end;
+        }
+        public double getLength()
+        {
+            double length = (Math.Pow(this.begin.x - end.x, 2) + Math.Pow(this.begin.y - end.y, 2));
+            length = Math.Sqrt(length);
+            return length;
+        }
+        public double getGradient()
+        {
+            int numenator = this.end.y - this.begin.y;
+            int denominator= this.end.x - this.begin.x;
+            double slope = numenator / denominator;
+            return slope;
+        }
+    }
+}
+
+
+
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lab6Task1.BL
+{
+    public class MyPoint
+    {
+        public MyPoint()
+        {
+
+        }
+        public MyPoint(int x,int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        public int x;
+        public int y;
+        internal object begin;
+
+        public int getX()
+        {
+            return x;
+        }
+        public int getY()
+        {
+            return y;
+        }
+        public void setX(int x)
+        {
+            this.x = x;
+        }
+        public void setY(int y)
+        {
+            this.y = y;
+        }
+        public void setXY(int x,int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        public double distanceWithCords(int x,int y)
+        {
+            double dis = (((this.x - x) * (this.x - x)) + ((this.y - y)*(this.y - y)));
+            dis = Math.Sqrt(dis);
+            return dis;
+        }
+        public double distanceWithObject(MyPoint another)
+        {
+            double dis = (Math.Pow( this.x - another.x,2) + ((this.y - another.y) * (this.y - another.y)));
+            dis = Math.Sqrt(dis);
+            return dis;
+        }
+        public double distanceFromZero()
+        {
+            double dis = Math.Sqrt(((x * x) + (y * y)));
+            return dis;
+        }     
+
+
+
+    }
+}

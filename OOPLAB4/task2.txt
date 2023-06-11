@@ -1,0 +1,120 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace tasks.BL
+{
+    public class Book
+    {
+        public string author;
+        public int pages;
+        public List<string> chapters;
+        public int bookMark;
+        public int price;
+
+        public Book(string author, int pages, List<string> chapters, int bookMark, int price)
+        {
+            this.author = author;
+            this.pages = pages;
+            this.chapters = chapters;
+            this.bookMark = bookMark;
+            this.price = price;
+        }
+        public string getChapter(int chapterNumber)
+        {
+            string findChapter = chapters[chapterNumber];
+            return findChapter;
+        }
+        public int getBookMark()
+        {
+            int mark = bookMark;
+            return mark;
+        }
+        public void setBookMark(int pageNumber)
+        {
+            bookMark = pageNumber;
+            Console.WriteLine("New Book Mark is: {0}", bookMark);
+
+        }
+        public void setBookPrice(int newPrice)
+        {
+            price = newPrice;
+            Console.WriteLine("New Price of book is: {0}", price);
+        }
+        public int getBookPrice()
+        {
+            int bookPrice = price;
+            return price;
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using tasks.BL;
+
+namespace tasks
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Book> listOfStudent = new List<Book>();
+            List<string> chapters = new List<string>();
+            Book allData = Data(chapters);
+            Console.WriteLine("Which chapter do you want to see: ");
+            int find = int.Parse(Console.ReadLine());
+            string gettingChapter = allData.getChapter(find);
+            Console.WriteLine(gettingChapter);
+            int mark = allData.getBookMark();
+            Console.WriteLine("Previous book Mark is: {0}", mark);
+            Console.WriteLine("Set New book Mark: ");
+            int number = int.Parse(Console.ReadLine());
+            allData.setBookMark(number);
+
+            int price = allData.getBookPrice();
+            Console.WriteLine("Previous book price is: {0}", price);
+            Console.WriteLine("Set New price of book: ");
+            int num = int.Parse(Console.ReadLine());
+            allData.setBookPrice(num);
+
+            Console.ReadKey();
+        }
+        static Book Data(List<string> chapters)
+        {
+            Console.WriteLine("Enter Author Name: ");
+            string author = Console.ReadLine();
+            Console.WriteLine("Enter total pages: ");
+            int pages = int.Parse(Console.ReadLine());
+            List<string> chapter = storeChapters(chapters);
+            Console.WriteLine("Enter bookMarks: ");
+            int bookMark = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter price: ");
+            int price = int.Parse(Console.ReadLine());
+
+            Book users = new Book(author, pages, chapters, bookMark, price);
+            return users;
+        }
+        static void storeInList(List<Book> listOfStudent, Book allData)
+        {
+            listOfStudent.Add(allData);
+        }
+        static List<string> storeChapters(List<string> chapters)
+        {
+            Console.WriteLine("Enter the number of chapters you want to include: ");
+            int num = int.Parse(Console.ReadLine());
+            for (int i = 0; i < num; i++)
+            {
+                Console.WriteLine("Enter {0} chapter name: ", i);
+                chapters.Add(Console.ReadLine());
+            }
+            return chapters;
+        }
+    }
+}

@@ -1,0 +1,6 @@
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\Clocktask\Clocktask\obj\Debug\Clocktask.csproj.CoreCompileInputs.cache
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\Clocktask\Clocktask\bin\Debug\Clocktask.exe.config
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\Clocktask\Clocktask\bin\Debug\Clocktask.exe
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\Clocktask\Clocktask\bin\Debug\Clocktask.pdb
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\Clocktask\Clocktask\obj\Debug\Clocktask.exe
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\Clocktask\Clocktask\obj\Debug\Clocktask.pdb

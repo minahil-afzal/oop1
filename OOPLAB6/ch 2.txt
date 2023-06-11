@@ -1,0 +1,592 @@
+using Challenge3.BL;
+using Challenge3.DL;
+using Challenge3.UI;
+using System;
+using System.Collections.Generic;
+
+namespace Challenge3
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Clear();
+            int option;
+            do
+            {
+                option = menu();
+                clearScreen();
+                Console.Clear();
+
+                if (option == 1)
+                {
+                    Console.Clear();
+                    MUser user = MUserUI.takeInputWithRole();
+                    if (user != null)
+                    {
+                        MUserCRUD.storeDataInList(user);
+                        clearScreen();
+                    }
+                    Console.Clear();
+                }
+                else if (option == 2)
+                {
+                    Console.Clear();
+                    MUser user = MUserUI.takeInputWithoutRole();
+                    if (user != null)
+                    {
+                        user = MUserCRUD.SignIn(user);
+                        if (user == null)
+                        {
+                            Console.WriteLine("Invalid USER");
+
+                        }
+                        else if (user.isAdmin())
+                        {
+                            Console.WriteLine("**************************");
+                            Console.WriteLine("        ADMIN MENU         ");
+                            Console.WriteLine("**************************");
+
+                            int category;
+                            do
+                            {
+                                Console.Clear();
+                                category = AdminMenu();
+                                clearScreen();
+                                if (category == 1)
+                                {
+                                    Console.Clear();
+                                    Product p2 = ProductUI.addProduct();
+                                    ProductCRUD.storeInList(p2);
+                                    clearScreen();
+                                    Console.Clear();
+
+                                }
+                                else if (category == 2)
+                                {
+                                    Console.Clear();
+                                    ProductUI.viewAllProduct();
+                                    clearScreen();
+                                    Console.Clear();
+
+                                }
+                                else if (category == 3)
+                                {
+                                    Console.Clear();
+                                    List<Product> sortedProductList = new List<Product>();
+                                    sortedProductList = Product.sortProductByPrice();
+                                    clearScreen();
+                                    Console.Clear();
+
+                                }
+                                else if (category == 4)
+                                {
+                                    Console.Clear();
+                                    ProductUI.productTax();
+                                    clearScreen();
+                                    Console.Clear();
+
+                                }
+                                else if (category == 5)
+                                {
+                                    Console.Clear();
+                                    Product p3 = ProductUI.orderedProduct();
+
+                                    clearScreen();
+
+
+                                }
+                                else if (category == 6)
+                                {
+                                    break;
+                                }
+
+                            }
+                            while (category < 6);
+                            Console.ReadKey();
+                        }
+                        else if (user.isCustomer())
+                        {
+                            Console.WriteLine("**************************");
+                            Console.WriteLine("        CUSTOMER  MENU         ");
+                            Console.WriteLine("**************************");
+
+                            int category1;
+                            do
+                            {
+                                Console.Clear();
+                                category1 = CustomerMenu();
+                                clearScreen();
+                                if (category1 == 1)
+
+                                {
+                                    Console.Clear();
+                                    ProductUI.viewAllProduct();
+                                    clearScreen();
+                                    Console.Clear();
+
+                                }
+
+
+                                else if (category1 == 2)
+                                {
+                                    Console.Clear();
+                                    ProductUI.buyProduct();
+                                    clearScreen();
+                                    Console.Clear();
+
+
+                                }
+                                else if (category1 == 3)
+                                {
+                                    Console.Clear();
+                                    float generic = ProductUI.genericVoice();
+                                    clearScreen();
+                                    Console.Clear();
+
+                                }
+                                else if (category1 == 4)
+                                {
+                                    break;
+
+
+                                }
+
+                            }
+                            while (category1 < 4);
+                            Console.ReadKey();
+
+
+
+                        }
+
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("USER MENU");
+                }
+
+                Console.Clear();
+
+
+
+
+            }
+            while (option < 3);
+            Console.ReadKey();
+
+        }
+        static int menu()
+        {
+            Console.WriteLine("****MENU *****");
+            Console.WriteLine("1.SIGN UP");
+            Console.WriteLine("2.SIGN IN ");
+            Console.WriteLine("3.Exit");
+            int choice = int.Parse(Console.ReadLine());
+            return choice;
+        }
+        static void clearScreen()
+        {
+            Console.WriteLine("Press any to continue ....");
+            Console.ReadKey();
+        }
+        static int AdminMenu()
+        {
+            Console.WriteLine("**************************");
+            Console.WriteLine("        ADMIN MENU         ");
+            Console.WriteLine("**************************");
+            Console.WriteLine("1.Add Product ");
+            Console.WriteLine("2.View all Products");
+            Console.WriteLine("3.Find product with highest Price");
+            Console.WriteLine("4.View sales tax of all products");
+            Console.WriteLine("5.Product to be ordered");
+            Console.WriteLine("6.EXIT");
+            int choice = int.Parse(Console.ReadLine());
+            return choice;
+        }
+        static int CustomerMenu()
+        {
+            Console.WriteLine("**************************");
+            Console.WriteLine("        CUSTOMER  MENU         ");
+            Console.WriteLine("**************************");
+            Console.WriteLine("1.View all Products");
+            Console.WriteLine("2.Buy the products");
+            Console.WriteLine("3.Generatic invoice");
+            Console.WriteLine("4.EXIT");
+            int choice = int.Parse(Console.ReadLine());
+            return choice;
+        }
+    }
+}
+____________________________________________________________________________________________________________________________________
+
+using Challenge3.BL;
+using Challenge3.DL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Challenge3.UI
+{
+    public class ProductUI
+    {
+        public static Product addProduct()
+        {
+
+            Console.WriteLine("Enter product name :");
+            string productName = Console.ReadLine();
+            Console.WriteLine("Enter product price :");
+            int productPrice = int.Parse(Console.ReadLine());
+            Console.WriteLine("enter product category :");
+            string productCategory = Console.ReadLine();
+            Console.WriteLine("Enter product  Quantity :");
+            int productQuantity = int.Parse(Console.ReadLine());
+            if (productName != null && productPrice != 0 && productCategory != null && productQuantity != 0)
+            {
+                Product p1 = new Product(productName, productPrice, productCategory, productQuantity);
+                return p1;
+            }
+
+
+            return null;
+        }
+        public static void viewAllProduct()
+        {
+            Console.WriteLine("Name\t\tPrice\t\tCategory\t\tQuantity");
+            foreach (Product viewProduct in ProductCRUD.products)
+            {
+                Console.WriteLine(viewProduct.productName + "\t\t" + viewProduct.productPrice + "\t\t" + viewProduct.productCategory + "\t\t" + viewProduct.productQuantity);
+            }
+        }
+        public static Product orderedProduct()
+        {
+            viewAllProduct();
+            Console.Clear();
+            Console.WriteLine("enter product name:");
+            string productName = Console.ReadLine();
+            Console.WriteLine("enter product category :");
+            string productCategory = Console.ReadLine();
+            Console.WriteLine("Enter product  Quantity :");
+            int productQuantity = int.Parse(Console.ReadLine());
+            if (productName != null && productCategory != null && productQuantity != 0)
+            {
+                Product p1 = new Product(productName, productCategory, productQuantity);
+                return p1;
+            }
+
+
+            return null;
+
+
+        }
+
+        public static void productTax()
+        {
+            Console.WriteLine("Enter product price :");
+            int productPrice = int.Parse(Console.ReadLine());
+            Console.WriteLine("enter product category :");
+            string productCategory = Console.ReadLine();
+            Product s1 = new Product(productPrice, productCategory);
+            float tax1 = s1.calculateTax();
+            Console.WriteLine("tax {0} :", tax1);
+        }
+        public static Product buyProduct()
+        {
+            //Console.WriteLine("How many products do u want to buy?");
+            // int n = int.Parse(Console.ReadLine());
+            // for(int x = 0; x<=n ;x++)
+            // {
+            Console.WriteLine("enter product name:");
+            string productName = Console.ReadLine();
+            Console.WriteLine("enter product category :");
+            string productCategory = Console.ReadLine();
+            Console.WriteLine("Enter product  Quantity :");
+            int productQuantity = int.Parse(Console.ReadLine());
+            if (productName != null && productCategory != null && productQuantity != 0)
+            {
+                Product p1 = new Product(productName, productCategory, productQuantity);
+                return p1;
+            }
+            // }
+            return null;
+
+        }
+        public static float genericVoice()
+        {
+            Console.WriteLine("enter customer name :");
+            string orderedProduct = Console.ReadLine();
+            Console.WriteLine("enter ordered product :");
+            string orderedCategory = Console.ReadLine();
+            Customer c1 = new Customer(orderedProduct, orderedCategory);
+            Console.Clear();
+            Console.WriteLine("Enter product price :");
+            int productPrice = int.Parse(Console.ReadLine());
+            Console.WriteLine("enter product category :");
+            string productCategory = Console.ReadLine();
+            Product s1 = new Product(productPrice, productCategory);
+
+            float tax1 = s1.calculateTax();
+            Console.WriteLine("tax {0} :", tax1);
+            return tax1;
+        }
+
+
+    }
+}
+
+________________________________________________________________________________________________________________________________
+
+using Challenge3.BL;
+using Challenge3.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Challenge3.DL
+{
+    public class ProductCRUD
+    {
+        public static List<Product> products = new List<Product>();
+
+
+        public static void storeInList(Product p1)
+        {
+            products.Add(p1);
+        }
+
+
+    }
+}
+
+_______________________________________________________________________________________________________________________________
+
+using Challenge3.DL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Challenge3.BL
+{
+    public class Product
+    {
+        public string productName;
+        public int productPrice;
+        public string productCategory;
+        public int productQuantity;
+        public Product(string productName, int productPrice, string productCategory, int productQuantity)
+        {
+            this.productName = productName;
+            this.productPrice = productPrice;
+            this.productCategory = productCategory;
+            this.productQuantity = productQuantity;
+        }
+        public Product(string productName, string productCategory, int productQuantity)
+        {
+            this.productName = productName;
+
+            this.productCategory = productCategory;
+            this.productQuantity = productQuantity;
+        }
+        public Product(int productPrice, string productCategory)
+        {
+
+            this.productPrice = productPrice;
+            this.productCategory = productCategory;
+        }
+
+        public static List<Product> sortProductByPrice()
+        {
+            List<Product> sortedProductList = new List<Product>();
+            foreach (Product s in ProductCRUD.products)
+            {
+                sortedProductList = ProductCRUD.products.OrderByDescending(o => o.productPrice).ToList();
+
+                return sortedProductList;
+            }
+            return null;
+        }
+        public float calculateTax()
+        {
+            float tax = 0;
+            if (productCategory == "fruit" || productCategory == "Fruit")
+            {
+                tax = this.productPrice * 0.1F;
+
+            }
+            else if (productCategory == "grocery" || productCategory == "Grocery")
+            {
+                tax = this.productPrice * 0.05F;
+
+            }
+            else
+            {
+                tax = this.productPrice * 0.15F;
+
+
+            }
+            return tax;
+        }
+
+
+
+
+    }
+}
+
+_______________________________________________________________________________________________________________________________
+
+using Challenge3.BL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Challenge3.UI
+{
+    public class MUserUI
+    {
+        public static MUser takeInputWithRole()
+        {
+            Console.WriteLine("enter username :");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter password :");
+            string password = Console.ReadLine();
+            Console.WriteLine("enter your role :");
+            string role = Console.ReadLine();
+            if (name != null && password != null && role != null)
+            {
+                MUser s1 = new MUser(name, password, role);
+                return s1;
+            }
+            return null;
+
+        }
+        public static MUser takeInputWithoutRole()
+        {
+            Console.WriteLine("enter username :");
+            string name = Console.ReadLine();
+            Console.WriteLine("Enter password :");
+            string password = Console.ReadLine();
+            if (name != null && password != null)
+            {
+                MUser s2 = new MUser(name, password);
+                return s2;
+            }
+            return null;
+
+
+        }
+    }
+}
+
+__________________________________________________________________________________________________________________________________
+
+using Challenge3.BL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Challenge3.DL
+{
+    public class MUserCRUD
+    {
+        public static List<MUser> users = new List<MUser>();
+        public static MUser SignIn(MUser user)
+        {
+            foreach (MUser storeUser in users)
+            {
+                if (user.username == storeUser.username && user.password == storeUser.password)
+                {
+                    return storeUser;
+                }
+
+            }
+            return null;
+        }
+        public static void storeDataInList(MUser user)
+        {
+            users.Add(user);
+
+        }
+    }
+}
+
+___________________________________________________________________________________________________________________
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Challenge3.BL
+{
+    public class MUser
+    {
+        public string username;
+        public string password;
+        public string role;
+        public MUser(string username, string password, string role)
+        {
+            this.username = username;
+            this.password = password;
+            this.role = role;
+
+        }
+        public MUser(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+
+        }
+        public bool isAdmin()
+        {
+            if (role == "admin" || role == "Admin")
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool isCustomer()
+        {
+            if (role == "customer" || role == "Customer")
+            {
+                return true;
+            }
+            return false;
+        }
+    }
+}
+
+____________________________________________________________________________________________________________________________________
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Challenge3.BL
+{
+    public class Customer
+    {
+        public string orderedProduct;
+        public string orderedCategory;
+        public Customer(string orderedProduct, string orderedCategory)
+        {
+            this.orderedProduct = orderedProduct;
+            this.orderedCategory = orderedCategory;
+        }
+    }
+}
+

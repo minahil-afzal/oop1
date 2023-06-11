@@ -1,0 +1,7 @@
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\practicetask1\practicetask1\bin\Debug\practicetask1.exe.config
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\practicetask1\practicetask1\bin\Debug\practicetask1.exe
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\practicetask1\practicetask1\bin\Debug\practicetask1.pdb
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\practicetask1\practicetask1\obj\Debug\practicetask1.csproj.AssemblyReference.cache
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\practicetask1\practicetask1\obj\Debug\practicetask1.csproj.CoreCompileInputs.cache
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\practicetask1\practicetask1\obj\Debug\practicetask1.exe
+D:\SEMESTER02\OOP LAB\OOPLAB3\practice\practicetask1\practicetask1\obj\Debug\practicetask1.pdb

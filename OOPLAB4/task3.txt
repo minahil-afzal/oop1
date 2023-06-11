@@ -1,0 +1,161 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using tasks.BL;
+using tasks.BL1;
+
+namespace tasks
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Customer> customers = new List<Customer>();
+            List<Product> products = new List<Product>();
+            int option;
+            do
+            {
+                option = menu();
+                if (option == 1)
+                {
+                    Customer allData = CData(customers);
+                    storeCInList(customers, allData);
+                    Console.WriteLine("now enter 1 to add products.");
+                    int opt = int.Parse(Console.ReadLine());
+                    Console.WriteLine("How many products do you want to add: ");
+                    int pro = int.Parse(Console.ReadLine());
+                    for (int i = 0; i < pro; i++)
+                    {
+                        if (opt == 1)
+                        {
+                            Product productData = PData(products);
+                            storePInList(products, productData);
+                            allData.addProduct(productData);
+                            float tax = productData.calculateTax();
+                            Console.WriteLine("The tax on you buyed product is: {0}", tax);
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("We cannot continue your request");
+                }
+            } while (option != 2);
+            Console.ReadKey();
+        }
+        static int menu()
+        {
+            Console.WriteLine("If you are a customer than press 1 to add your data.");
+            Console.WriteLine("Enter your option");
+            int option = int.Parse(Console.ReadLine());
+            return option;
+        }
+        static Customer CData(List<Customer> customers)
+        {
+            Console.WriteLine("Enter Customer Name: ");
+            string cName = Console.ReadLine();
+            Console.WriteLine("Enter Address: ");
+            string cAddress = Console.ReadLine();
+            Console.WriteLine("Enter Contact number: ");
+            string cContact = Console.ReadLine();
+
+            Customer users = new Customer(cName, cAddress, cContact);
+            return users;
+        }
+        static void storeCInList(List<Customer> customers, Customer allData)
+        {
+            customers.Add(allData);
+        }
+        static Product PData(List<Product> products)
+        {
+            Console.WriteLine("Enter product Name: ");
+            string pName = Console.ReadLine();
+            Console.WriteLine("Enter category: ");
+            string pCategory = Console.ReadLine();
+            Console.WriteLine("Enter price: ");
+            int price = int.Parse(Console.ReadLine());
+
+            Product users = new Product(pName, pCategory, price);
+            return users;
+        }
+        static void storePInList(List<Product> products, Product productData)
+        {
+            products.Add(productData);
+        }
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using tasks.BL1;
+
+namespace tasks.BL
+{
+    public class Customer
+    {
+        public string customerName;
+        public string customerAddress;
+        public string customerContact;
+        public List<Product> products = new List<Product>();
+        public List<Product> GetAllProducts()
+        {
+            return products;
+        }
+        public void addProduct(Product p)
+        {
+            products.Add(p);
+        }
+        public Customer(string customerName, string customerAddress, string customerContact)
+        {
+            this.customerName = customerName;
+            this.customerAddress = customerAddress;
+            this.customerContact = customerContact;
+            
+        }
+        
+    }
+}
+
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace tasks.BL1
+{
+    public class Product
+    {
+        public string name;
+        public string category;
+        public int price;
+        
+        public Product(string name, string category, int price)
+        {
+            this.name = name;
+            this.category = category;
+            this.price = price;
+
+        }
+        public float calculateTax()
+        {
+            float tax;
+            if (category == "l")
+            {
+                tax = (price * 0.10F);
+            }
+            else
+            {
+                tax = (price * 0.15F);
+            }
+            return tax;
+        }
+    }
+}

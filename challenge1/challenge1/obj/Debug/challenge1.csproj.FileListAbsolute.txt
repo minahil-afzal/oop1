@@ -1,0 +1,7 @@
+D:\SEMESTER02\OOP LAB\OOPLAB3\challenge1\challenge1\bin\Debug\challenge1.exe.config
+D:\SEMESTER02\OOP LAB\OOPLAB3\challenge1\challenge1\bin\Debug\challenge1.exe
+D:\SEMESTER02\OOP LAB\OOPLAB3\challenge1\challenge1\bin\Debug\challenge1.pdb
+D:\SEMESTER02\OOP LAB\OOPLAB3\challenge1\challenge1\obj\Debug\challenge1.csproj.AssemblyReference.cache
+D:\SEMESTER02\OOP LAB\OOPLAB3\challenge1\challenge1\obj\Debug\challenge1.csproj.CoreCompileInputs.cache
+D:\SEMESTER02\OOP LAB\OOPLAB3\challenge1\challenge1\obj\Debug\challenge1.exe
+D:\SEMESTER02\OOP LAB\OOPLAB3\challenge1\challenge1\obj\Debug\challenge1.pdb
